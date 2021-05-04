@@ -1,17 +1,18 @@
-FROM richxsl/rhel7
+FROM registry.access.redhat.com/ubi7/ubi
 
 ARG N8N_VERSION=0.36.1
 
 RUN if [ -z "$N8N_VERSION" ] ; then echo "The N8N_VERSION argument is missing!" ; exit 1; fi
+USER 0
 
 RUN \
-	yum install -y gcc-c++ make
+	yum  install -y  gcc-c++ make
 
 RUN \
-	curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+	curl -sL https://rpm.nodesource.com/setup_12.x | bash -
 
 RUN \
-	sudo yum install nodejs
+	yum install -y  nodejs
 
 # Set a custom user to not have n8n run as root
 USER root
